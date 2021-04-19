@@ -11,8 +11,8 @@ class AuthController extends Controller
 {
     public function login(Request $request) {
         $validate = \Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|email|string',
+            'password' => 'required|min:8',
         ]);
 
         if ($validate->fails()) {
@@ -50,6 +50,7 @@ class AuthController extends Controller
                     'status_code' => 200,
                     'access_token' => $tokenResult,
                     'token_type' => 'Bearer',
+                    'user' => $user->name,
                 ]
             ];
             return response()->json($respon, 200);
@@ -57,8 +58,10 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request) {
-        $user = $request->user();
-        $user->currentAccessToken()->delete();
+        $user = Auth::user();
+
+        $user->revoke();
+        // $user->currentAccessToken()->delete();
         $respon = [
             'status' => 'success',
             'msg' => 'Logout successfully',
@@ -68,15 +71,39 @@ class AuthController extends Controller
         return response()->json($respon, 200);
     }
 
-    public function logoutall(Request $request) {
-        $user = $request->user();
-        $user->tokens()->delete();
-        $respon = [
-            'status' => 'success',
-            'msg' => 'Logout successfully',
-            'errors' => null,
-            'content' => null,
-        ];
-        return response()->json($respon, 200);
+    public function signup(Request $request) {
+        $validate = \Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+        ]);
+        if ($validate->fails()) {
+            $respon = [
+                'status' => 'error',
+                'msg' => 'Validator error',
+                'errors' => $validate->errors(),
+                'content' => null,
+            ];
+            return response()->json($respon, 200);
+        }else{
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+            $tokenResult = $user->createToken('token-auth')->plainTextToken;
+            $respon = [
+                'status' => 'success',
+                'msg' => 'Register successfully',
+                'errors' => null,
+                'content' => [
+                    'status_code' => 200,
+                    'access_token' => $tokenResult,
+                    'token_type' => 'Bearer',
+                    'user' => $user->name,
+                ]
+            ];
+            return response()->json($respon, 200);
+        }
     }
 }

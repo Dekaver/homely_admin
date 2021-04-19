@@ -20,9 +20,5 @@ use App\Http\Controllers\AuthController;
 // });
 
 Route::post('login', [AuthController::class, 'login'])->name('login-api');
-Route::group(['prefix' => 'auth', 'middleware' => 'auth:sanctum'], function() {
-    // manggil controller sesuai bawaan laravel 8
-    Route::post('logout', [AuthController::class, 'logout']);
-    // manggil controller dengan mengubah namespace di RouteServiceProvider.php biar bisa kayak versi2 sebelumnya
-    Route::post('logoutall', [AuthController::class, 'logoutall']);
-});
+Route::post('signup', [AuthController::class, 'signup'])->name('signup-api');
+Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('logout-api');
