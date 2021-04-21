@@ -13,7 +13,20 @@ class House extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('houses', function (Blueprint $table) {
+            $table->id();
+            $table->string('tipe');
+            $table->string('lantai');
+            $table->string('Sertifikasi');
+            $table->integer('luas_tanah')->unsigned();
+            $table->integer('luas_bangunan')->unsigned();
+            $table->integer('harga')->unsigned();
+            $table->string('alamat');
+            $table->string('lokasi_gps');
+            $table->string('deskripsi');
+            $table->string('kontak');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +36,6 @@ class House extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('houses');
     }
 }

@@ -22,5 +22,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::view('login-api', "api-tes");
+Route::resource('houses', \App\Http\Controllers\HouseController::class)->shallow();
+Route::resource('houses.images', \App\Http\Controllers\ImageController::class)->shallow();
+Route::resource('users', \App\Http\Controllers\UsersController::class)->shallow();
 
 require __DIR__.'/auth.php';
