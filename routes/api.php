@@ -21,4 +21,6 @@ use App\Http\Controllers\AuthController;
 
 Route::post('login', [AuthController::class, 'login'])->name('login-api');
 Route::post('signup', [AuthController::class, 'signup'])->name('signup-api');
-Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('logout-api');
+Route::get('logout', [AuthController::class, 'logout'])
+    // ->middleware('auth:api')
+    ->name('logout-api');

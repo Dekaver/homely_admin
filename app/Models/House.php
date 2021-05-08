@@ -5,30 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class house extends Model
+class House extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'tipe',
-        'kategori',
         'lantai',
-        'kamar_tidur',
-        'kamar_mandi',
-        'Sertifikasi',
+        'sertifikasi',
         'luas_tanah',
         'luas_bangunan',
+        'harga',
+        'alamat',
         'lokasi_gps',
         'deskripsi',
         'kontak',
     ];
 
-    public function Gambar()
+    public function Images()
     {
         return $this->hasMany(Image::class, 'id_house');
     }
 
-    public function Kategori()
+    public function Category()
     {
         return $this->hasMany(Category::class, 'id_house');
     }

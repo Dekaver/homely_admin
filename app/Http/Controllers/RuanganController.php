@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\House;
-use App\Models\Image;
+use App\Models\Ruangan;
 
-class ImageController extends Controller
+class RuanganController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class ImageController extends Controller
     public function index($id)
     {
         $house = House::find($id);
-        $image = $house->images;
-        return response()->json(House::find($id)->Images);
+        $ruangan = $house->Ruangan;
+        return response()->json(House::find($id)->Ruangan);
     }
 
     /**
@@ -26,15 +26,15 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($images, $id)
+    public function store($ruangan, $jumlah, $id)
     {
-        for ($i=0; $i < count($images); $i++) { 
-            $image = $images[$i];
-            $nama_image = \Carbon\Carbon::now()->setTimezone('GMT+8')->format('ymdHis').$i.'.'.$image->extension();
-            $image->move(public_path('images'), $nama_image);
-            $image = Image::create([
+        for ($i=0; $i < count($ruangan); $i++) { 
+            $nama_ruangan = $ruangan[$i];
+            $jumlah_ruangan = $jumlah[$i];
+            Ruangan::create([
                 'id_house' => $id,
-                'nama' => $nama_image,
+                'nama' => $nama_ruangan,
+                'jumlah' => $jumlah_ruangan,
             ]);
         }
     }
@@ -47,8 +47,8 @@ class ImageController extends Controller
      */
     public function show($id)
     {
-        $image = Image::find($id);
-        return redirect('images/'.$image->name);
+        $ruangan = Ruangan::find($id);
+        return redirect('ruangan/'.$ruangan->name.'show');
     }
 
     /**
@@ -59,7 +59,7 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-        Image::find($id)->delete();
+        Ruangan::find($id)->delete();
         return redirect()->back();
     }
 }

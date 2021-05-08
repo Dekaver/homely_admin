@@ -15,8 +15,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'email' => 'user@gmail.com',
-            'name' => 'User',
+            'email' => 'admin@gmail.com',
+            'name' => 'Admin',
+            'email_verified_at' => \Carbon\Carbon::now(),
             'password' => \Hash::make('12345678'),
             'status' => 'aktif',
         ]);

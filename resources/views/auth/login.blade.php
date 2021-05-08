@@ -1,15 +1,11 @@
 <x-guest-layout>
-    <x-slot name="logo">
-        <a href="/">
-            <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-        </a>
-    </x-slot>
+    
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <!-- Validation Errors -->
     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-    <div class="container mx-auto px-4 h-full">
+    <div class="container mx-auto p-4 h-full">
         <div class="flex content-center items-center justify-center h-full">
         <div class="w-full lg:w-4/12 px-4">
             <div

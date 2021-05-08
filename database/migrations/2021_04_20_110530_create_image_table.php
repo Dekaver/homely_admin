@@ -13,7 +13,7 @@ class CreateImageTable extends Migration
      */
     public function up()
     {
-        Schema::create('image', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_house')->constrained('houses')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('nama');

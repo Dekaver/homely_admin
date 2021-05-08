@@ -4,8 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class House extends Migration
+class CreateHouseTable extends Migration
 {
+    
     /**
      * Run the migrations.
      *
@@ -17,12 +18,12 @@ class House extends Migration
             $table->id();
             $table->string('tipe');
             $table->string('lantai');
-            $table->string('Sertifikasi');
+            $table->string('sertifikasi');
             $table->integer('luas_tanah')->unsigned();
             $table->integer('luas_bangunan')->unsigned();
             $table->integer('harga')->unsigned();
             $table->string('alamat');
-            $table->string('lokasi_gps');
+            $table->string('lokasi_gps')->nullable();
             $table->string('deskripsi');
             $table->string('kontak');
             $table->timestamps();

@@ -1,77 +1,57 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            {{ __('Show product') }}
+        <h2 class="my-6 text-2xl font-semibold text-gray-700">
+            {{ __('Show user') }}
         </h2>
     </x-slot>
+    <div class="container p-8">
+    
     <div class="py-12">
-      <div class="text-4xl font-serif dark:text-gray-200 dark:bg">
-        Show Data product
+      <div class="text-4xl font-serif">
+        Show Data user
       </div>
     </div>
     <div x-data="{ open: false }" class="mb-6">
-      <a href="{{route('seller.product.create',$seller_id)}}" class="bg-green-500 rounded-md hover:bg-green-700 text-white font-serif font-bold py-2 px-6">
-        Add product
+      <a href="{{route('users.create')}}" class="bg-green-500 rounded-md hover:bg-green-700 text-white font-serif font-bold py-2 px-6">
+        Add User
       </a>
     </div>
-      <div class="overflow-hidden shadow-xl rounded-lg lg:rounded-md">
+    {{-- <div class="flex justify-center"> --}}
+      <div class="overflow-hidden shadow-xl rounded-lg lg:rounded-md w-12/12">
         <div class="overflow-x-auto">
-          <table class="w-full whitespace-nowrap ">
+          <table class="whitespace-nowrap ">
             <thead >
               <tr
-                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-200 dark:text-gray-400 dark:bg-gray-800"
+                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-200 border-gray-700"
                 >
-                <th class="px-4 py-3">Product</th>
-                <th class="px-4 py-3">Stock</th>
-                <th class="px-4 py-3">Price</th>
-                <th class="px-4 py-3">category</th>
-                <th class="px-4 py-3">Aksi</th>
+                <th class="px-4 py-3 w-1.5">No</th>
+                <th class="px-4 py-3 w-3/12">Username</th>
+                <th class="px-4 py-3 w-4/12">Email</th>
+                <th class="px-4 py-3 w-2/12">Status</th>
+                <th class="px-4 py-3 w-4/12">Aksi</th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-              @foreach ($products as $product)
-                <tr class="text-gray-700 dark:text-gray-400">
+            <tbody class="bg-white divide-y">
+              @foreach ($users as $user)
+                <tr class="text-gray-700">
                     <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div
-                            class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                            >
-                            <img
-                            class="object-cover w-full h-full rounded-full"
-                            src="{{asset('img/product/'.$product->image_url)}}"
-                            alt=""
-                            loading="lazy"
-                            />
-                            <div
-                            class="absolute inset-0 rounded-full shadow-inner"
-                            aria-hidden="true"
-                            ></div>
-                        </div>
-                        <div>
-                          <p>
-                            <a class="font-semibold text-gray-900 dark:text-gray-100 hover:text-blue-600" href="/product/{{{$product->id}}}">{{$product->name}}</a>
-                          </p>
-                          <p class="text-xs text-gray-600 dark:text-gray-400">
-                            {{$product->name}}
-                          </p>
-                        </div>
+                      {{$loop->iteration}}
                     </td>
-                    <td class="px-4 py-3 text-xs">
-                        {{$product->stock}}
+                    <td class="px-4 py-3">
+                      {{$user->name}}  
                     </td>
-                    <td class="px-4 py-3 text-xs">
-                      {{$product->price}}
+                    <td class="px-4 py-3 col">
+                      {{$user->email}}
                     </td>
-                    <td class="px-4 py-3 text-xs">
-                      {{$product->category}}
+                    <td class="px-4 py-3 col">
+                      {{$user->status}}
                     </td>
-                    <td class="px-4 py-3 text-sm">
-                      <form action="{{ route('product.destroy',$product->id) }}" method="post">  
+                    <td class="px-4 py-3">
+                      <form action="{{ route('users.destroy',$user->id) }}" method="post">  
                         @csrf
                         @method('DELETE')
-                        <a class="bg-green-700 py-1 px-3 hover:bg-green-800 rounded-md text-white" href="{{ route('product.show', $product->id)}}">Show</a>
-                        <a class="bg-blue-700 py-1 px-3 hover:bg-blue-800 rounded-md text-white" href="{{ route('product.edit', $product->id)}}">Edit</a>
+                        <a class="bg-green-700 py-1 px-3 hover:bg-green-800 rounded-md text-white" href="{{ route('users.show', $user->id)}}">Show</a>
+                        <a class="bg-blue-700 py-1 px-3 hover:bg-blue-800 rounded-md text-white" href="{{ route('users.edit', $user->id)}}">Edit</a>
                         <button type="submit" class="bg-red-700 py-1 px-3 hover:bg-red-800 text-white rounded-md">Delete</button>
                       </form>
                     </td>
@@ -82,9 +62,9 @@
   
           </table>
         </div>
-        {!!$products->links()!!}
-      </div>
-      
+        {{-- {!!$users->links()!!} --}}
+        </div>
+    </div>
           
   
   
