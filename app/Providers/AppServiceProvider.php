@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
             return "Rp. <?php echo number_format($expression, 0, ',', '.'); ?>";
         });
     }
+
     /**
      * Register any application services.
      *

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HouseApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,5 @@ Route::post('signup', [AuthController::class, 'signup'])->name('signup-api');
 Route::get('logout', [AuthController::class, 'logout'])
     // ->middleware('auth:api')
     ->name('logout-api');
+
+Route::get('houses', [HouseApiController::class, 'index']);
