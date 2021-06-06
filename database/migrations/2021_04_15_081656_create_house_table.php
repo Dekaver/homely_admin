@@ -24,7 +24,7 @@ class CreateHouseTable extends Migration
             $table->integer('harga')->unsigned();
             $table->string('alamat');
             $table->string('lokasi_gps')->nullable();
-            $table->string('deskripsi');
+            $table->longText('deskripsi');
             $table->string('kontak');
             $table->timestamps();
         });
