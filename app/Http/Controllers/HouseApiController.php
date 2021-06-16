@@ -20,7 +20,7 @@ class HouseApiController extends Controller
         return response()->json($houses, 201);
     }
 
-    public function filter(Request $request)
+    public function search(Request $request)
     {
         $house = House::where('harga', '>', 0);
         
@@ -40,7 +40,11 @@ class HouseApiController extends Controller
             $house->where('luas_tanah', '=', $request->max_luas_tanah);
         }
         if ($request->has('alamat')) {
-            $house->where('alamat', 'LIKE', '%'. $request->alamat . '$');
+            $house->where('alamat', 'LIKE', '%'. $request->alamat . '%');
+        }
+
+        if ($request->has('deskripsi')) {
+            $house->where('deskripsi', 'LIKE', '%'. $request->deskripsi .'%');
         }
 
         $house = $house->get();
@@ -48,6 +52,10 @@ class HouseApiController extends Controller
         $house->load('Images');
         $house->load('Ruangan');
 
-        return response()->json($house, 201);
+        $data['status'] = 'success';
+        $data['jumlah'] = $house->count();
+        $data['result'] = $house;
+
+        return response()->json($data, 201);
     }
 }

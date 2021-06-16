@@ -27,6 +27,6 @@ Route::get('logout', [AuthController::class, 'logout'])
     ->name('logout-api');
 
 Route::get('houses', [HouseApiController::class, 'index']);
-Route::get('houses/search', [HouseApiController::class, 'filter']);
+Route::post('houses/search', [HouseApiController::class, 'search']);
 // Route::get('search', [HouseApiController::class, 'search']);
 
